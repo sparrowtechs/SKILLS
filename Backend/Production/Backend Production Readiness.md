@@ -107,3 +107,48 @@ When using this guide, respond with:
 3. Operational weaknesses
 4. Specific next actions
 5. Production verdict: `Block`, `Revise`, or `Ready`
+
+## Durability Checks
+
+Use these checks to keep production readiness tied to operational truth rather than to launch-day confidence.
+
+### 1. Measure the Signals That Predict User Pain
+
+A backend is not production-ready if nobody can answer quickly:
+
+- how slow requests are
+- how much traffic is arriving
+- what is failing
+- what resource is close to saturation
+
+Track the operational signals that let the team see trouble before users explain it for you.
+
+### 2. Make Rollback and Roll-Forward Explicit
+
+Deployment safety depends on knowing which changes can be reverted, which require compensation, and which require forward repair.
+
+If the release changes data or contracts, document the recovery path before deployment.
+
+### 3. Test Degraded Conditions on Purpose
+
+Production readiness is stronger when the team has seen the system under:
+
+- slow downstream dependencies
+- queue backlog
+- partial startup failure
+- missing configuration
+- exhausted connection pools
+
+If every check assumes normal conditions, readiness is overstated.
+
+### 4. Tie Ownership to the Operational Surface
+
+Alerts, dashboards, jobs, migrations, and recovery procedures should have clear owners.
+
+A service is not ready if it can wake people up at night but nobody clearly owns the fix path.
+
+## References Used To Shape This Guide
+
+- Google SRE guidance on golden signals and service operability
+- practical rollback and progressive delivery guidance
+- production reliability practices from mature backend platform teams

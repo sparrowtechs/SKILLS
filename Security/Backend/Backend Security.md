@@ -99,3 +99,35 @@ When using this guide, respond with:
 3. Other backend findings
 4. Specific fixes
 5. Backend ship verdict: `Block`, `Revise`, or `Ready`
+
+## Durability Checks
+
+Use these checks to keep backend security durable under real production behavior rather than clean demo traffic.
+
+### 1. Derive Authority From Verified Server Context
+
+Do not let the backend decide access from client-supplied IDs, roles, tenant hints, or hidden fields when a verified server-side identity should be the source of truth.
+
+### 2. Treat Retries and Replays as Normal Conditions
+
+Queued jobs, webhook deliveries, browser retries, and mobile reconnects all create repeated execution.
+
+Security-sensitive operations should remain correct when requests arrive twice, out of order, or after partial failure.
+
+### 3. Narrow Outbound Trust
+
+Every webhook source, callback target, fetch target, and integration credential expands the backend trust boundary.
+
+Prefer allowlists, signature verification, short-lived credentials, and explicit failure handling over broad network trust.
+
+### 4. Protect the Operational Surfaces Too
+
+Health checks, admin routes, task runners, cron endpoints, metrics, and debug paths are often easier to abuse than the main API.
+
+If those surfaces are weak, the backend is still weak.
+
+## References Used To Shape This Guide
+
+- OWASP ASVS API and authorization requirements
+- OWASP SSRF Prevention Cheat Sheet
+- OWASP Input Validation and SQL Injection guidance

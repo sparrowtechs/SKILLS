@@ -238,3 +238,65 @@ For security reviews, prefer:
 - why they matter
 - the clearest next fixes
 - final security verdict: `Block`, `Revise`, or `Ready`
+
+## Durability Checks
+
+Use these checks to keep the work durable over time instead of treating security as a one-time review artifact.
+
+### 1. Reduce Exposure Before You Add Controls
+
+The cheapest security control is often removing the exposure entirely.
+
+Prefer:
+
+- fewer public entry points
+- fewer privileged roles
+- fewer long-lived secrets
+- fewer stored copies of sensitive data
+- fewer third-party dependencies with broad access
+
+If the system can become safer by removing a surface, do that before layering more policy on top of it.
+
+### 2. Treat the Build Path as Part of the Security Model
+
+Production risk does not start at runtime.
+
+Dependencies, CI pipelines, package registries, build agents, artifact storage, and deployment credentials all affect whether the shipped system can be trusted.
+
+If the release path is easy to poison, bypass, or over-privilege, the product is not secure even if the application code looks disciplined.
+
+### 3. Verify Controls by Trying the Wrong Thing
+
+A control is stronger when it has survived misuse, not when it merely exists in configuration.
+
+Check whether the system still holds when someone:
+
+- changes IDs or tenant identifiers
+- retries the same operation
+- replays a webhook
+- uploads the wrong type of file
+- calls an internal-looking endpoint from the outside
+- uses an expired, missing, or downgraded credential
+
+Security confidence should come from failed abuse paths, not from documentation alone.
+
+### 4. Keep Security Decisions Close to Ownership
+
+Security weakens when critical decisions are spread across unclear owners.
+
+Every meaningful exception or exposure should have:
+
+- a named owner
+- a reason it exists
+- a review point
+- a path to removal or replacement
+
+If nobody clearly owns a risk, the risk is already growing.
+
+## References Used To Shape This Guide
+
+This guide is intentionally shorter than the source material behind it, but it is shaped primarily by durable security references, especially:
+
+- OWASP ASVS
+- OWASP Cheat Sheet Series
+- OWASP Secure by Design Framework

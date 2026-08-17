@@ -161,6 +161,40 @@ When using this guide, respond with:
 5. Next Actions
    - concrete fixes in priority order
 
+## Durability Checks
+
+Use these checks to keep deployment review tied to the shipped reality rather than to pre-launch optimism.
+
+### 1. Verify the Running Environment, Not Just the Repository
+
+A secure pull request can still become an insecure release through environment drift, missing headers, leaked secrets, public buckets, or mis-scoped runtime identities.
+
+Always confirm what is actually deployed.
+
+### 2. Treat the Release Path as a Privileged System
+
+CI runners, deployment identities, artifact registries, and release approvals are part of the attack surface.
+
+If the pipeline can be abused to ship unauthorized code or access production secrets broadly, deployment security is weak even when the app code looks solid.
+
+### 3. Run Negative-Case Release Checks
+
+Launch confidence should include attempts to prove the system rejects bad conditions, not just that normal flows work.
+
+Check cases such as:
+
+- expired or rotated credentials
+- unauthorized access to protected routes
+- uploads or payloads that should be rejected
+- missing security headers
+- storage or database access with the wrong identity
+
+### 4. Make Temporary Exceptions Expire
+
+Deployment exceptions should be time-bounded and owned.
+
+If a release depends on a risky exception that nobody will revisit, that exception has already become part of the baseline.
+
 ## References Used To Shape This Guide
 
 This guide is informed primarily by OWASP ASVS, OWASP Secure Coding Practices, OWASP database and HTTP header guidance, and deployment-focused CI/CD security practices. It is intentionally shorter and more operational than those source materials.

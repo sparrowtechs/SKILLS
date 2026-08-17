@@ -124,3 +124,44 @@ When using this guide, respond with:
 3. Retry and async behavior problems
 4. Specific fixes
 5. API design verdict: `Block`, `Revise`, or `Ready`
+
+## Durability Checks
+
+Use these checks to keep API design stable under long-lived client use instead of only under fresh internal knowledge.
+
+### 1. Make the Contract Honest About State
+
+Do not return "success" when work was only accepted, partially completed, or failed downstream.
+
+The API should tell the truth about what has happened so clients can behave safely.
+
+### 2. Design Errors for Machines and Humans
+
+Clients need machine-readable codes and predictable structure.
+
+Operators and integrators need messages that explain what failed without exposing internals.
+
+If either side has to guess, the contract is still weak.
+
+### 3. Assume Clients Will Retry Imperfectly
+
+Some clients retry too soon, some retry forever, and some retry after losing the original response.
+
+Define idempotency, conflict behavior, pagination stability, and async completion rules so the API stays usable under messy real traffic.
+
+### 4. Make Compatibility a Deliberate Policy
+
+Versioning is not enough by itself.
+
+Also define:
+
+- what changes are backward compatible
+- how deprecations are announced
+- how long old clients are supported
+- what consumers can rely on staying stable
+
+## References Used To Shape This Guide
+
+- Microsoft REST API Guidelines
+- RFC-style API error and HTTP semantics guidance
+- production API practices shaped by long-lived public APIs such as Stripe

@@ -213,7 +213,7 @@ Use these when you need deeper direction in one area:
 - `Architecture/Backend Architecture.md`
 - `API Design/Backend API Design.md`
 - `Production/Backend Production Readiness.md`
-- `../Security/Backend/Backend Security Checklist.md`
+- `../Security/Backend/Backend Security.md`
 
 ## Output Format
 
@@ -243,3 +243,42 @@ For backend reviews, prefer:
 - why they matter
 - the clearest next fixes
 - final backend verdict: `Block`, `Revise`, or `Ready`
+
+## Durability Checks
+
+Use these checks to keep backend decisions mature as the system grows instead of only looking clean at first release.
+
+### 1. Prefer Simpler Deployment Shapes Until Pressure Is Real
+
+Do not split a system into more services, queues, or abstractions just because the pattern sounds advanced.
+
+Earn extra complexity through real pressure such as:
+
+- conflicting release cadence
+- clearly different scaling needs
+- stable ownership boundaries
+- isolation requirements you can name concretely
+
+### 2. Make Repeated Execution a First-Class Design Case
+
+If the backend changes money, inventory, permissions, or workflow state, retries and duplicate delivery are core behavior, not edge behavior.
+
+Design and review for repetition explicitly.
+
+### 3. Separate Runtime Authority From Change Authority
+
+The credentials and privileges needed to serve normal traffic should not be the same ones used for migrations, emergency repair, or platform administration.
+
+Backends stay healthier when normal runtime power is narrow.
+
+### 4. Force Important Tradeoffs Into the Open
+
+When a backend depends on a non-obvious choice, such as sync versus async flow, modular monolith versus service split, or eventual consistency versus strong consistency, record the choice while it is still fresh.
+
+Undocumented tradeoffs get rediscovered as accidental defects later.
+
+## References Used To Shape This Guide
+
+- Microsoft REST API Guidelines
+- Martin Fowler guidance on architecture and evolutionary design
+- Google SRE guidance on operability and production readiness

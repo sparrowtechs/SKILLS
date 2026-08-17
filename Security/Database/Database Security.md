@@ -78,3 +78,42 @@ When using this guide, respond with:
 3. Other database findings
 4. Specific fixes
 5. Database ship verdict: `Block`, `Revise`, or `Ready`
+
+## Durability Checks
+
+Use these checks to keep database security based on data ownership and recovery reality, not only on engine configuration.
+
+### 1. Treat Data Copies as Part of the Same Security Surface
+
+Primary instances are only part of the risk.
+
+Check backups, exports, replicas, analytics copies, staging restores, and ad hoc dumps with the same seriousness as the production database.
+
+### 2. Separate Runtime Access From Administrative Power
+
+Normal application traffic should not require the same privileges as migrations, maintenance, or incident response.
+
+If one credential can read, alter, and destroy everything, the blast radius is too broad.
+
+### 3. Prove Recovery, Do Not Assume It
+
+Encrypted backups and replica settings are not enough on paper.
+
+You need confidence that restore procedures work, access remains controlled during restore, and recovered data does not leak into weaker environments.
+
+### 4. Review What the Database Is Allowed to Trust
+
+Re-check whether the database is relying too heavily on application discipline for:
+
+- row or tenant isolation
+- privileged query paths
+- audit visibility
+- data masking in lower environments
+
+If the only thing protecting the data is "the app usually does the right thing," the design is fragile.
+
+## References Used To Shape This Guide
+
+- OWASP Database Security Cheat Sheet
+- OWASP SQL Injection Prevention Cheat Sheet
+- OWASP Transport Layer Security Cheat Sheet

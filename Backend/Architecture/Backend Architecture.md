@@ -110,3 +110,35 @@ When using this guide, respond with:
 3. Coupling and dependency problems
 4. Refactoring directions
 5. Architecture verdict: `Block`, `Revise`, or `Ready`
+
+## Durability Checks
+
+Use these checks to keep architecture grounded in real system pressures instead of diagram quality.
+
+### 1. Choose Service Boundaries for Ownership, Not Fashion
+
+Do not split by technical layer, team preference alone, or the desire to look distributed.
+
+Prefer boundaries that match business capability, data ownership, and change cadence.
+
+### 2. Be Suspicious of Shared Write Authority
+
+If multiple modules or services can write the same important state without a clear owner, the boundary is weak no matter how clean the code layout looks.
+
+### 3. Count the Cost of Every Network Hop
+
+Every extra service boundary adds failure handling, latency, deployment coordination, observability work, and on-call load.
+
+If the system pays that tax without gaining meaningful independence, the structure is too fragmented.
+
+### 4. Make the Recovery Story Match the Architecture Story
+
+Ask how the system behaves when one dependency is slow, unavailable, or partially updated.
+
+Architecture is not mature if it only reads well under happy-path diagrams.
+
+## References Used To Shape This Guide
+
+- Martin Fowler guidance on monolith-first and architectural evolution
+- Sam Newman guidance on service boundaries and independent deployability
+- practical ADR guidance for recording important architecture choices

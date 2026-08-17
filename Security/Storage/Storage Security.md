@@ -76,3 +76,48 @@ When using this guide, respond with:
 3. Other storage findings
 4. Specific fixes
 5. Storage ship verdict: `Block`, `Revise`, or `Ready`
+
+## Durability Checks
+
+Use these checks to keep storage security strong after the first bucket policy review.
+
+### 1. Treat Every Access Link as a Credential
+
+Signed URLs, upload tokens, shared access signatures, and temporary links are bearer credentials.
+
+Review them as if leaked links will be copied, cached, forwarded, and logged.
+
+### 2. Keep User-Controlled Content Away From Trusted Origins
+
+Storage becomes dangerous when untrusted files are served in a way that lets the browser treat them like trusted app content.
+
+Re-check origin separation, content disposition, content type handling, and whether active content can run where it should only be downloaded.
+
+### 3. Secure the Entire File Lifecycle
+
+Uploads are only the start.
+
+Check:
+
+- pre-upload authorization
+- post-upload scanning or validation
+- download authorization
+- retention and deletion behavior
+- backup and replication exposure
+
+### 4. Continuously Look for Forgotten Exposure
+
+Storage leaks often come from drift:
+
+- old test buckets
+- stale vendor access
+- expired-but-still-valid sharing patterns
+- replicated buckets with weaker policy
+
+If storage review only checks the primary happy path, it will miss where real leaks happen.
+
+## References Used To Shape This Guide
+
+- OWASP File Upload Cheat Sheet
+- OWASP ASVS file handling requirements
+- vendor-neutral object storage access-control and signed URL guidance

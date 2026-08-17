@@ -117,6 +117,68 @@ For copy refinement, prefer:
 - what was removed or simplified
 - final tone check: clear, natural, and product-specific
 
+## Durability Checks
+
+Use these checks to keep the work mature over time rather than merely stylish in the moment.
+
+### 1. Start With User Needs, Then Product Context
+
+Do not optimize for trend language, current visual fashion, or what AI tools commonly generate first.
+
+Start with:
+
+- who the user is
+- what they are trying to do
+- what the product needs to communicate
+- what platform and context they are in
+
+### 2. Do Less, But Do It Better
+
+If a layout, sentence, card, chart, illustration, or effect does not improve comprehension, trust, or task completion, remove it.
+
+Less surface area usually creates:
+
+- clearer hierarchy
+- stronger product identity
+- less maintenance burden
+- fewer accessibility failures
+
+### 3. Be Consistent, Not Uniform
+
+Reuse patterns, language, and interaction logic where that helps users build familiarity.
+
+Do not force every screen into the same visual treatment when the content, task, or context is different.
+
+Consistency should reduce user effort.
+Uniformity should not erase meaning.
+
+### 4. Prefer Evidence Over Taste When You Can
+
+If real usage, support feedback, analytics, research, or usability findings exist, let them overrule stylistic preference.
+
+Use judgment when evidence is unavailable, but do not confuse personal taste with product truth.
+
+### 5. Keep the Interface Honest and Maintainable
+
+Do not rely on fake data, decorative dashboards, inflated claims, or interface patterns that only look convincing in a static mockup.
+
+Favor solutions that will still read clearly when the product has:
+
+- empty states
+- long labels
+- real user content
+- failure states
+- smaller screens
+- future feature growth
+
+## References Used To Shape This Guide
+
+This guide is intentionally opinionated, but it aligns with durable ideas from mature design and content systems, especially:
+
+- GOV.UK design principles and content design guidance
+- Apple Human Interface Guidelines
+- GitHub content design principles and accessibility guidance
+
 ---
 
 # 1. Start With the Product, Not the Aesthetic

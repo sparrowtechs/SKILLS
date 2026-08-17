@@ -31,6 +31,10 @@ Any HTML, markdown, upload, or third-party script that reaches the browser shoul
 
 URLs, local storage, client bundles, logs, and browser caches all expand exposure if you let them.
 
+### 5. Browser Controls Are a Second Layer, Not the First
+
+CSP, cookie settings, origin policy, and headers can reduce damage, but they do not excuse unsafe rendering or weak server-side authorization.
+
 ## Review Areas
 
 ### Client Data and Secrets
@@ -75,3 +79,49 @@ When using this guide, respond with:
 3. Other frontend findings
 4. Specific fixes
 5. Frontend ship verdict: `Block`, `Revise`, or `Ready`
+
+## Durability Checks
+
+Use these checks to keep frontend security grounded in durable browser realities instead of framework fashion.
+
+### 1. Keep Trust Decisions on the Server
+
+If a flow is only safe because the client hides, filters, or disables something, the safety is cosmetic.
+
+Re-check whether the server still holds if the browser is bypassed entirely.
+
+### 2. Separate Trusted and Untrusted Content Deliberately
+
+Do not mix first-party application code, third-party scripts, and user-supplied content on the same assumptions.
+
+Review whether:
+
+- user content is isolated from the main app origin when needed
+- rich content is sanitized before rendering
+- third-party scripts are limited to vendors you would explicitly trust in an incident review
+
+### 3. Minimize What JavaScript Can Reach
+
+If a token, secret, or sensitive value can be read from browser JavaScript, injected code may be able to read it too.
+
+Prefer designs that reduce long-lived browser-visible credentials and keep sensitive session material out of URLs and unnecessary client storage.
+
+### 4. Test Real Browser Failure Modes
+
+Do not stop at happy-path page loads.
+
+Check what happens when:
+
+- CSP blocks a resource
+- a session expires mid-flow
+- a cached page is revisited on a shared machine
+- untrusted markup or uploads are rendered in the browser
+
+Frontend security should remain understandable and safe when the browser behaves like a hostile environment, not a cooperative one.
+
+## References Used To Shape This Guide
+
+- OWASP ASVS web frontend requirements
+- OWASP Content Security Policy Cheat Sheet
+- OWASP HTTP Security Response Headers Cheat Sheet
+- OWASP Cross Site Scripting Prevention Cheat Sheet
