@@ -1,4 +1,4 @@
-# Security Checklist Before Deploy
+# Deployment Security
 
 ## Purpose
 
@@ -10,7 +10,7 @@ The goal is:
 
 > **Catch the security mistakes that most often reach production because teams assume they are already handled.**
 
-This checklist is intentionally practical. It focuses on controls that can be verified before release.
+This guide stays practical. It focuses on controls that can be verified before release.
 
 ## Use This When
 
@@ -29,20 +29,31 @@ Do not use this guide as a substitute for:
 - incident response
 - compliance-specific legal advice
 
-## How To Use This Guide
+## Core Rules
 
-1. Start with the whole-system checklist below.
-2. Then review the relevant sub-guides:
-   - `Backend/`
-   - `Frontend/`
-   - `Database/`
-   - `Storage/`
-3. Mark each item as:
-   - `Pass`
-   - `Fail`
-   - `Not Applicable`
-4. Do not mark an item as passed unless it can be verified in code, configuration, or the deployed environment.
-5. Any failed critical item blocks deployment until fixed or explicitly accepted by the owner.
+### 1. Verify the Deployed Reality
+
+Do not decide security readiness only from repository code or a local story about how production works.
+
+Check the deployed or deployable environment directly.
+
+### 2. Remove Unsafe Defaults Before Launch
+
+Debug mode, broad CORS, public buckets, default credentials, sample data, and development shortcuts should be removed before they become the production baseline.
+
+### 3. Treat Launch as a Privilege Check
+
+A system is not ready to ship if it still has:
+
+- broken access control
+- exposed secrets
+- over-broad runtime privileges
+- unsafe upload or storage behavior
+- production data handling gaps
+
+### 4. Exceptions Must Be Explicit
+
+If a high-risk issue is accepted temporarily, document the owner, reason, and follow-up plan before launch.
 
 ## Severity
 
@@ -50,7 +61,7 @@ Do not use this guide as a substitute for:
 - `High`: fix before public launch unless there is a documented exception
 - `Medium`: fix soon, but does not always block launch
 
-## Whole-System Checklist
+## Review Areas
 
 ### 1. Secrets and Credentials
 

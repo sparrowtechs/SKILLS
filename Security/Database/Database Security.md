@@ -1,20 +1,37 @@
-# Database Security Checklist
+# Database Security
 
 ## Purpose
 
-Use this checklist to review relational and non-relational databases, data stores, caches, and database-connected deployment choices before launch.
+Use this guide to review relational and non-relational databases, data stores, caches, and database-connected deployment choices before launch.
 
-## Focus
+## Use This When
 
-This guide is especially concerned with:
+Use this guide when:
 
-- over-privileged access
-- exposed databases
-- weak transport and at-rest protections
-- unsafe handling of backups and non-production data
-- missing auditability for sensitive access
+- reviewing database privileges and exposure
+- checking whether production data handling is actually safe
+- deciding whether migrations, backups, and restore paths are secure enough
+- tightening database access before launch
 
-## Checklist
+## Core Rules
+
+### 1. The Database Should Not Trust the Application More Than Necessary
+
+Do not let runtime applications operate as superusers or broad administrative roles by default.
+
+### 2. Exposure Must Stay Deliberate
+
+A database that is casually reachable, broadly credentialed, or copied freely into lower environments is already weak before any injection bug appears.
+
+### 3. Backups and Replicas Count Too
+
+Security posture is not limited to the primary database instance.
+
+### 4. Sensitive Data Handling Includes Lifecycle
+
+Collection, masking, retention, restore, and deletion are all part of database security.
+
+## Review Areas
 
 ### Access and Network Exposure
 

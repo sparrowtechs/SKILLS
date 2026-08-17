@@ -1,20 +1,37 @@
-# Frontend Security Checklist
+# Frontend Security
 
 ## Purpose
 
-Use this checklist to review browser-facing applications, server-rendered UI, SPA frontends, and client-side flows before deployment.
+Use this guide to review browser-facing applications, server-rendered UI, SPA frontends, and client-side flows before deployment.
 
-## Focus
+## Use This When
 
-This guide is especially concerned with:
+Use this guide when:
 
-- unsafe handling of tokens and sensitive data
-- XSS and script injection risk
-- dangerous CORS and browser policy gaps
-- insecure frontend assumptions about authorization
-- accidental exposure through URLs, local storage, or client bundles
+- reviewing browser-facing token handling and session behavior
+- checking XSS, markup rendering, and third-party script exposure
+- deciding whether the UI creates false security assumptions
+- reviewing cache, CSP, and browser policy behavior
 
-## Checklist
+## Core Rules
+
+### 1. The Frontend Is Not a Security Boundary
+
+Hiding a button, route, or field is not authorization.
+
+### 2. Browsers Need Explicit Safety Controls
+
+CSP, origin separation, cache behavior, and content-serving decisions need to match the actual app behavior, not generic defaults.
+
+### 3. Rendered Content Is a Security Surface
+
+Any HTML, markdown, upload, or third-party script that reaches the browser should be treated as an active attack surface.
+
+### 4. Sensitive Data Should Leave as Little Trace as Possible
+
+URLs, local storage, client bundles, logs, and browser caches all expand exposure if you let them.
+
+## Review Areas
 
 ### Client Data and Secrets
 

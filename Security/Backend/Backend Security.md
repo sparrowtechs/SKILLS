@@ -1,21 +1,41 @@
-# Backend Security Checklist
+# Backend Security
 
 ## Purpose
 
-Use this checklist to review backend services, APIs, server actions, worker processes, and privileged server-side logic before deployment.
+Use this guide to review backend services, APIs, server actions, worker processes, and privileged server-side logic before deployment.
 
-## Focus
+## Use This When
 
-This guide is especially concerned with:
+Use this guide when:
 
-- broken access control
-- unsafe authentication and session handling
-- injection risks
-- insecure outbound requests
-- unsafe file handling
-- dangerous production misconfiguration
+- reviewing backend auth and authorization behavior
+- checking server-side validation and injection resistance
+- reviewing webhook, queue, cron, or admin surfaces
+- deciding whether a backend is safe enough to expose or ship
 
-## Checklist
+## Core Rules
+
+### 1. The Server Must Be the Real Gatekeeper
+
+Every protected action must be enforceable at the backend boundary, not merely suggested by the UI.
+
+### 2. Resource Access Must Be Checked Per Request
+
+Do not trust route structure, hidden IDs, tenant assumptions, or controller wiring to preserve object-level authorization automatically.
+
+### 3. Validation Must Happen Before Dangerous Use
+
+Validate request structure, content types, and limits before the request reaches query execution, shell execution, file handling, or outbound calls.
+
+### 4. Outbound Trust Must Be Narrow
+
+Webhooks, callbacks, signed requests, server-side fetches, and third-party integrations must be treated as untrusted until verified.
+
+### 5. Production Hardening Is Part of Backend Security
+
+If debug routes, metrics endpoints, or broad admin surfaces are exposed carelessly, the backend is not secure even if the application logic is correct.
+
+## Review Areas
 
 ### Authentication and Session Handling
 
@@ -36,6 +56,7 @@ This guide is especially concerned with:
 ### Input Validation and Injection
 
 - `Critical` Request bodies, query params, headers, and path params are validated server-side.
+- `Critical` Request content types are validated and unsupported content types are rejected.
 - `Critical` SQL, NoSQL, shell, template, and command injection risks are prevented by parameterized APIs, strict validation, and no unsafe string-built execution paths.
 - `High` Request body size, pagination, and expensive query paths have sane limits.
 - `High` Redirect targets, callback URLs, and webhook destinations are validated rather than trusted blindly.
@@ -44,8 +65,16 @@ This guide is especially concerned with:
 
 - `Critical` Secret keys and database credentials stay on the server and never reach the client bundle or logs.
 - `High` Secrets are injected through environment or secret-management tooling, not hardcoded.
+- `High` Credentials, tokens, and other sensitive values are not placed in URLs or query strings.
 - `High` Sensitive responses are minimized to the fields the client actually needs.
 - `High` Internal admin routes, cron endpoints, and webhook endpoints are protected by authentication, network restriction, shared secret verification, or equivalent server-side controls.
+
+### API and Protocol Controls
+
+- `High` Allowed HTTP methods are defined per route, and unsupported methods fail clearly.
+- `High` Response content types are set deliberately and do not leave browsers or clients guessing.
+- `High` State-changing endpoints that may be retried define idempotency or duplicate-delivery handling.
+- `High` Management, health, metrics, and admin endpoints are protected according to their exposure risk.
 
 ### Outbound Calls and Integrations
 
@@ -57,6 +86,7 @@ This guide is especially concerned with:
 
 - `Critical` Production responses do not expose stack traces, SQL statements, tokens, or internal paths.
 - `High` Security-relevant events are logged without leaking secrets.
+- `High` Audit logs exist for authentication failures, privilege changes, sensitive configuration changes, and access denials.
 - `High` Debug tooling, test routes, and development shortcuts are disabled in production.
 - `High` Rate limiting or equivalent anti-abuse controls exist for login, signup, password reset, search, and other expensive endpoints.
 

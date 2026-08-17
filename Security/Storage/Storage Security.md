@@ -1,20 +1,37 @@
-# Storage Security Checklist
+# Storage Security
 
 ## Purpose
 
-Use this checklist to review object storage, file uploads, download links, asset buckets, blob stores, and backup storage before deployment.
+Use this guide to review object storage, file uploads, download links, asset buckets, blob stores, and backup storage before deployment.
 
-## Focus
+## Use This When
 
-This guide is especially concerned with:
+Use this guide when:
 
-- accidental public exposure
-- over-broad bucket or blob permissions
-- unsafe signed URL usage
-- insecure file upload and serving behavior
-- poor logging and recovery controls around stored files
+- reviewing object storage and bucket exposure
+- checking upload and download behavior
+- deciding whether signed URL usage and public asset serving are safe enough
+- tightening storage controls before launch
 
-## Checklist
+## Core Rules
+
+### 1. Storage Should Be Private by Default
+
+Public access should be a deliberate product decision, not a leftover configuration state.
+
+### 2. Uploaded Files Are Untrusted
+
+Every upload flow needs controls around type, size, serving origin, and active content risk.
+
+### 3. Temporary Access Must Actually Be Temporary
+
+Signed URLs, scoped tokens, and shared credentials lose their value when they are broad or long-lived.
+
+### 4. Copies and Replicas Carry the Same Risk
+
+Backups, replicated buckets, exports, and CDN-backed origins need the same scrutiny as the primary storage path.
+
+## Review Areas
 
 ### Access Control
 
