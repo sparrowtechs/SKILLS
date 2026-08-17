@@ -137,8 +137,21 @@ Ask how the system behaves when one dependency is slow, unavailable, or partiall
 
 Architecture is not mature if it only reads well under happy-path diagrams.
 
+### 5. Make Long-Running Workflows Explicit and Recoverable
+
+If work spans multiple modules, queues, or services, define:
+
+- who owns the workflow
+- what state is checkpointed
+- which steps may retry
+- which steps need compensation
+- how stuck work is detected
+
+Async architecture becomes fragile when the recovery path is only implied.
+
 ## References Used To Shape This Guide
 
 - Martin Fowler guidance on monolith-first and architectural evolution
 - Sam Newman guidance on service boundaries and independent deployability
 - practical ADR guidance for recording important architecture choices
+- domain-driven design guidance on bounded contexts and ownership

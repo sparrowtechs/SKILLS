@@ -277,8 +277,50 @@ When a backend depends on a non-obvious choice, such as sync versus async flow, 
 
 Undocumented tradeoffs get rediscovered as accidental defects later.
 
+### 5. Make Control Loops Explicit
+
+If the backend depends on retries, queues, feature flags, rate limits, autoscaling, or circuit breakers, define who controls them and what they are allowed to do.
+
+Operational controls should have:
+
+- a clear owner
+- explicit trigger conditions
+- known rollback or abort behavior
+- cleanup rules when they are temporary
+
+If control loops exist only as scattered config, the backend will drift during incidents.
+
+### 6. Measure Before You Optimize
+
+Do not redesign architecture, add caching, split services, or tune concurrency because the system feels slow in theory.
+
+Measure:
+
+- the slow path
+- the expensive query
+- the queue that is backing up
+- the payload that is too large
+- the dependency that is stretching the response path
+
+Real bottlenecks deserve design changes.
+Imagined bottlenecks usually create unnecessary complexity.
+
+### 7. Test the Seams That Carry Real Risk
+
+The most important backend tests usually sit at the boundaries where state, retries, validation, permissions, and integrations meet.
+
+Prefer tests that prove:
+
+- business invariants stay true
+- repeated execution stays safe
+- APIs fail predictably
+- workflows recover or compensate correctly
+- dependencies can be swapped or simulated without rewriting business logic
+
 ## References Used To Shape This Guide
 
 - Microsoft REST API Guidelines
 - Martin Fowler guidance on architecture and evolutionary design
 - Google SRE guidance on operability and production readiness
+- Google SRE Workbook and OpenTelemetry guidance on reliability signals
+- mature progressive-delivery guidance from systems such as LaunchDarkly and Unleash

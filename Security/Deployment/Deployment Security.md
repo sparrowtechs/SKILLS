@@ -115,7 +115,9 @@ If a high-risk issue is accepted temporarily, document the owner, reason, and fo
 
 - `Critical` Debug mode, test endpoints, admin backdoors, and development-only tools are disabled in production.
 - `Critical` Default credentials are not in use anywhere in the deployed stack.
+- `Critical` The release path blocks deployment on known blocking security failures such as exposed secrets or critical dependency findings.
 - `High` Dependencies and base images are checked for known critical vulnerabilities before release.
+- `High` A current dependency or artifact inventory can be produced for the shipped build.
 - `High` Environment-specific configuration is checked so development settings do not leak into production.
 - `High` Branch protections, review requirements, or equivalent release controls protect the deployment path.
 
@@ -195,6 +197,17 @@ Deployment exceptions should be time-bounded and owned.
 
 If a release depends on a risky exception that nobody will revisit, that exception has already become part of the baseline.
 
+### 5. Keep Pre-Ship Evidence Automated and Recent
+
+Security evidence loses value quickly when it was gathered from older commits, different artifacts, or a different environment.
+
+Prefer release checks that run close to the shipped build and cover:
+
+- secret exposure
+- dependency and image risk
+- deploy configuration drift
+- negative-case verification on the real target surface
+
 ## References Used To Shape This Guide
 
-This guide is informed primarily by OWASP ASVS, OWASP Secure Coding Practices, OWASP database and HTTP header guidance, and deployment-focused CI/CD security practices. It is intentionally shorter and more operational than those source materials.
+This guide is informed primarily by OWASP ASVS, OWASP Secure Coding Practices, OWASP database and HTTP header guidance, NIST SSDF, CISA secure-by-design guidance, and deployment-focused CI/CD security practices. It is intentionally shorter and more operational than those source materials.

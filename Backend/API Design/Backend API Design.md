@@ -160,6 +160,18 @@ Also define:
 - how long old clients are supported
 - what consumers can rely on staying stable
 
+### 5. Make Async Contracts Versionable and Verifiable
+
+Webhooks, callback payloads, and queue-facing contracts need the same discipline as synchronous APIs.
+
+Define explicitly:
+
+- event or webhook identifiers
+- signature or authenticity checks
+- duplicate and ordering expectations
+- schema evolution rules
+- replay-safe consumer behavior
+
 ## References Used To Shape This Guide
 
 - Microsoft REST API Guidelines

@@ -293,6 +293,33 @@ Every meaningful exception or exposure should have:
 
 If nobody clearly owns a risk, the risk is already growing.
 
+### 5. Use Automated Evidence on Every Release Path
+
+Manual review is important, but modern security also needs repeatable automated evidence close to the point of release.
+
+That usually includes:
+
+- secret scanning
+- dependency and base-image vulnerability scanning
+- configuration or IaC checks where relevant
+- changed-code security review for high-risk diffs
+
+These controls do not prove safety by themselves.
+They do reduce the chance of shipping obvious preventable failures.
+
+### 6. Turn Findings Into Shipping Decisions
+
+A security finding is not useful if it ends as an unowned report.
+
+Define a small number of blocking conditions for release, such as:
+
+- exposed secrets
+- broken access control
+- public storage or database exposure
+- critical unpatched dependencies on the shipped path
+
+Everything else still matters, but blocking criteria should be explicit enough that teams know when shipping must stop.
+
 ## References Used To Shape This Guide
 
 This guide is intentionally shorter than the source material behind it, but it is shaped primarily by durable security references, especially:
@@ -300,3 +327,5 @@ This guide is intentionally shorter than the source material behind it, but it i
 - OWASP ASVS
 - OWASP Cheat Sheet Series
 - OWASP Secure by Design Framework
+- NIST Secure Software Development Framework
+- CISA Secure by Design guidance

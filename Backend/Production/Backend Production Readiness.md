@@ -98,6 +98,32 @@ Examples:
 
 This keeps production behavior reviewable instead of institutional memory only.
 
+### 8. Reliability Targets Must Shape Release Decisions
+
+For user-critical paths, define what healthy behavior means in measurable terms.
+
+That usually means:
+
+- the signal you trust
+- the target you are trying to hold
+- the burn or failure condition that should stop a rollout
+- who decides whether to continue, rollback, or repair forward
+
+If the team cannot say what "too broken to keep shipping" means, release discipline is weak.
+
+### 9. Progressive Delivery Needs a Kill Path and a Cleanup Path
+
+Feature flags, canaries, staged rollouts, and dark launches can reduce release risk, but only when they are controlled deliberately.
+
+Before relying on them, define:
+
+- abort criteria
+- kill-switch behavior
+- monitoring during rollout
+- when the temporary control will be removed
+
+Flags and rollout controls that never get cleaned up become operational debt.
+
 ## Output Format
 
 When using this guide, respond with:
@@ -147,8 +173,35 @@ Alerts, dashboards, jobs, migrations, and recovery procedures should have clear 
 
 A service is not ready if it can wake people up at night but nobody clearly owns the fix path.
 
+### 5. Use Reliability Targets and Burn Alerts for Real Decisions
+
+Reliability targets should not live only in a slide deck or dashboard.
+
+If a path is important enough to protect, define the indicator, the target, and the burn condition that should change release behavior.
+
+Otherwise the system has telemetry, but not operational discipline.
+
+### 6. Treat Feature Flags as Temporary Operational Controls
+
+Release flags, kill switches, and staged rollout controls should have:
+
+- a purpose
+- an owner
+- a removal point
+- a documented fallback behavior
+
+Permanent flag debt makes production behavior harder to reason about.
+
+### 7. Profile Before You Tune
+
+When a backend is slow or expensive, prove the bottleneck before changing architecture, concurrency, caching, or infrastructure shape.
+
+Use profiling, query evidence, and load testing to show where time or resource is actually being spent.
+
 ## References Used To Shape This Guide
 
 - Google SRE guidance on golden signals and service operability
+- Google SRE Workbook guidance on SLIs, SLOs, and error budgets
+- OpenTelemetry guidance on traces and production telemetry
 - practical rollback and progressive delivery guidance
 - production reliability practices from mature backend platform teams

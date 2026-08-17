@@ -171,6 +171,34 @@ Favor solutions that will still read clearly when the product has:
 - smaller screens
 - future feature growth
 
+### 6. Make the Design Language Systematic
+
+Visual quality should not depend on one lucky screen.
+
+Define a small, explicit system for:
+
+- color roles instead of random per-screen color choices
+- typography scale instead of one-off size decisions
+- spacing rhythm instead of ad hoc gaps
+- component states and variants instead of isolated styling
+- motion and emphasis rules instead of decorative effects added late
+
+The goal is not rigidity.
+
+The goal is that the product still feels coherent after the tenth screen, the third contributor, and the next redesign cycle.
+
+### 7. Review Responsive and Accessible Behavior Before Final Polish
+
+A design is not mature if it only works in the most flattering viewport with the shortest content.
+
+Check early for:
+
+- long labels and dense content
+- keyboard and focus behavior
+- reduced-motion and contrast needs
+- touch-target sizing
+- empty, loading, and failure states on smaller screens
+
 ## References Used To Shape This Guide
 
 This guide is intentionally opinionated, but it aligns with durable ideas from mature design and content systems, especially:
@@ -178,6 +206,7 @@ This guide is intentionally opinionated, but it aligns with durable ideas from m
 - GOV.UK design principles and content design guidance
 - Apple Human Interface Guidelines
 - GitHub content design principles and accessibility guidance
+- Material Design and Adobe Spectrum guidance on tokens, states, and accessibility
 
 ---
 
